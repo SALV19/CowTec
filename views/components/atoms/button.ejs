@@ -1,0 +1,15 @@
+<!-- Button Atom -->
+<button 
+  class="btn btn-<%= typeof variant !== 'undefined' ? variant : 'primary' %> btn-<%= typeof size !== 'undefined' ? size : 'md' %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
+  type="<%= typeof type !== 'undefined' ? type : 'button' %>"
+  <% if (typeof onclick !== 'undefined' && onclick) { %>onclick="<%= onclick %>"<% } %>
+  <% if (typeof disabled !== 'undefined' && disabled) { %>disabled<% } %>
+  <% if (typeof id !== 'undefined' && id) { %>id="<%= id %>"<% } %>
+  <% if (typeof dataBs !== 'undefined' && dataBs) { %>data-bs-toggle="<%= dataBs %>"<% } %>
+  <% if (typeof dataTarget !== 'undefined' && dataTarget) { %>data-bs-target="<%= dataTarget %>"<% } %>
+>
+  <% if (typeof icon !== 'undefined' && icon) { %>
+    <%- include('icon', { name: icon, additionalClasses: (typeof text !== 'undefined' && text) ? 'me-2' : '' }) %>
+  <% } %>
+  <% if (typeof text !== 'undefined' && text) { %><%= text %><% } %>
+</button>

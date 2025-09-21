@@ -1,0 +1,123 @@
+<%# 
+  🎨 DESIGN TOKENS - COLORS
+  
+  Central color definitions for the entire design system.
+  These tokens should be used by all components instead of hardcoded colors.
+%>
+
+<%
+// Primary Brand Colors
+const colors = {
+  primary: {
+    50: '#eff6ff',
+    100: '#dbeafe', 
+    200: '#bfdbfe',
+    300: '#93c5fd',
+    400: '#60a5fa',
+    500: '#3b82f6',  // Main primary
+    600: '#2563eb',
+    700: '#1d4ed8',
+    800: '#1e40af',
+    900: '#1e3a8a'
+  },
+  
+  // Semantic Colors  
+  success: {
+    50: '#f0fdf4',
+    500: '#22c55e',  // Main success
+    600: '#16a34a',
+    700: '#15803d'
+  },
+  
+  warning: {
+    50: '#fffbeb',
+    500: '#f59e0b',  // Main warning
+    600: '#d97706',
+    700: '#b45309'
+  },
+  
+  danger: {
+    50: '#fef2f2',
+    500: '#ef4444',  // Main danger
+    600: '#dc2626',
+    700: '#b91c1c'
+  },
+  
+  // Neutral Colors
+  gray: {
+    50: '#f9fafb',
+    100: '#f3f4f6',
+    200: '#e5e7eb',
+    300: '#d1d5db',
+    400: '#9ca3af',
+    500: '#6b7280',
+    600: '#4b5563',
+    700: '#374151',
+    800: '#1f2937',
+    900: '#111827'
+  },
+  
+  // Dashboard Specific
+  dashboard: {
+    kpiPrimary: '#3b82f6',
+    kpiSuccess: '#22c55e', 
+    kpiWarning: '#f59e0b',
+    kpiDanger: '#ef4444',
+    kpiInfo: '#06b6d4',
+    chartPrimary: '#5470c6',
+    chartSecondary: '#91cc75',
+    chartAccent: '#fac858'
+  }
+};
+
+// CSS Custom Properties Output
+const cssVariables = Object.entries(colors).map(([category, shades]) => {
+  if (typeof shades === 'object' && !Array.isArray(shades)) {
+    return Object.entries(shades).map(([shade, value]) => 
+      `  --color-${category}-${shade}: ${value};`
+    ).join('\n');
+  }
+  return `  --color-${category}: ${shades};`;
+}).join('\n');
+%>
+
+<style>
+:root {
+<%= cssVariables %>
+
+  /* Semantic Aliases */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-500);
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-gray-50);
+  --color-border: var(--color-gray-200);
+  --color-border-light: var(--color-gray-100);
+  
+  /* Component Specific */
+  --color-kpi-bg-primary: var(--color-dashboard-kpiPrimary);
+  --color-kpi-bg-success: var(--color-dashboard-kpiSuccess);
+  --color-kpi-bg-warning: var(--color-dashboard-kpiWarning);
+  --color-kpi-bg-danger: var(--color-dashboard-kpiDanger);
+  --color-kpi-bg-info: var(--color-dashboard-kpiInfo);
+}
+
+/* Dark mode variables (optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: var(--color-gray-100);
+    --color-text-secondary: var(--color-gray-300);
+    --color-text-muted: var(--color-gray-400);
+    --color-bg-primary: var(--color-gray-900);
+    --color-bg-secondary: var(--color-gray-800);
+    --color-border: var(--color-gray-700);
+    --color-border-light: var(--color-gray-600);
+  }
+}
+</style>
+
+<%# Export colors object for JavaScript use %>
+<script>
+window.DesignTokens = window.DesignTokens || {};
+window.DesignTokens.colors = <%- JSON.stringify(colors) %>;
+</script>

@@ -1,0 +1,26 @@
+<!-- Chart Controls Molecule -->
+<div class="card<%= additionalClasses ? ' ' + additionalClasses : '' %>">
+  <div class="card-body">
+    <h6>Chart Controls</h6>
+    <div class="btn-group" role="group">
+      <%- include('../atoms/button', { 
+        text: '🔄 Refresh Data', 
+        variant: 'outline-primary',
+        size: 'sm',
+        onclick: 'refreshChart()'
+      }) %>
+      <%- include('../atoms/button', { 
+        text: '💾 Download PNG', 
+        variant: 'outline-success',
+        size: 'sm',
+        onclick: 'downloadChart()'
+      }) %>
+      <%- include('../atoms/button', { 
+        text: '🎨 Toggle Theme', 
+        variant: 'outline-info',
+        size: 'sm',
+        onclick: 'toggleTheme()'
+      }) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<!-- KPI Dashboard Section Organism -->
+<div class="row mb-4<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <% kpis.forEach((kpi, index) => { %>
+    <div class="col-md-<%= typeof columnSize !== 'undefined' ? columnSize : 3 %>">
+      <%- include('../molecules/kpi-card', { 
+        title: kpi.title,
+        value: kpi.value,
+        prefix: kpi.prefix,
+        suffix: kpi.suffix,
+        icon: kpi.icon,
+        bgColor: kpi.bgColor,
+        id: kpi.id,
+        valueId: kpi.valueId,
+        change: kpi.change,
+        changeType: kpi.changeType
+      }) %>
+    </div>
+  <% }); %>
+</div>

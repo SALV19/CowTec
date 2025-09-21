@@ -1,0 +1,11 @@
+<!-- Card Header Atom -->
+<div class="card-header<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <% if (typeof icon !== 'undefined' && icon) { %>
+    <%- include('icon', { name: icon, additionalClasses: 'me-2' }) %>
+  <% } %>
+  <% if (typeof title === 'string') { %>
+    <h5 class="mb-0"><%= title %></h5>
+  <% } else if (typeof content !== 'undefined') { %>
+    <%= content %>
+  <% } %>
+</div>

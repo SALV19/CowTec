@@ -1,0 +1,273 @@
+<%- include('partials/header') %>
+
+<!-- Page Header -->
+<%- include('components/molecules/page-header', { 
+  title: title,
+  subtitle: 'Real-time analytics and data visualization dashboard',
+  icon: 'tachometer-alt'
+}) %>
+
+<!-- KPI Section -->
+<%- include('components/organisms/kpi-section', { 
+  kpis: [
+    {
+      title: 'Total Sales',
+      value: data.kpis.totalSales.toLocaleString(),
+      prefix: '$',
+      icon: 'dollar-sign',
+      bgColor: 'primary',
+      id: 'total-sales-card',
+      valueId: 'total-sales'
+    },
+    {
+      title: 'Active Users',
+      value: data.kpis.activeUsers.toLocaleString(),
+      icon: 'users',
+      bgColor: 'success',
+      id: 'active-users-card',
+      valueId: 'active-users'
+    },
+    {
+      title: 'Orders',
+      value: data.kpis.totalOrders.toLocaleString(),
+      icon: 'shopping-cart',
+      bgColor: 'warning',
+      id: 'orders-card',
+      valueId: 'total-orders'
+    },
+    {
+      title: 'Revenue Growth',
+      value: data.kpis.revenueGrowth,
+      suffix: '%',
+      icon: 'chart-line',
+      bgColor: 'info',
+      id: 'growth-card',
+      valueId: 'revenue-growth'
+    }
+  ]
+}) %>
+
+<!-- Charts Section -->
+<%- include('components/organisms/charts-grid', { 
+  charts: [
+    {
+      title: 'Sales Trend (Last 6 Months)',
+      icon: 'chart-line',
+      chartId: 'sales-trend-chart',
+      height: '300px',
+      columnSize: 8,
+      spacing: 'mb-4'
+    },
+    {
+      title: 'Traffic Sources',
+      icon: 'chart-pie',
+      chartId: 'traffic-sources-chart',
+      height: '300px',
+      columnSize: 4,
+      spacing: 'mb-4'
+    }
+  ]
+}) %>
+
+<!-- Second Row Charts -->
+<%- include('components/organisms/charts-grid', { 
+  charts: [
+    {
+      title: 'Regional Performance',
+      icon: 'globe',
+      chartId: 'regional-chart',
+      height: '250px',
+      columnSize: 6,
+      spacing: 'mt-4'
+    },
+    {
+      title: 'Product Categories',
+      icon: 'boxes',
+      chartId: 'categories-chart',
+      height: '250px',
+      columnSize: 6,
+      spacing: 'mt-4'
+    }
+  ],
+  additionalClasses: 'mt-4'
+}) %>
+
+<script>
+// Dashboard data from controller
+const dashboardData = <%- JSON.stringify(data) %>;
+
+// Initialize all dashboard charts
+document.addEventListener('DOMContentLoaded', function() {
+    initializeDashboard();
+    
+    // Update KPIs every 30 seconds (with slight variations for demo)
+    setInterval(updateKPIs, 30000);
+});
+
+function initializeDashboard() {
+    initSalesTrendChart();
+    initTrafficSourcesChart();
+    initRegionalChart();
+    initCategoriesChart();
+}
+
+function initSalesTrendChart() {
+    const chart = echarts.init(document.getElementById('sales-trend-chart'));
+    
+    const option = {
+        title: { text: dashboardData.salesTrend.title },
+        tooltip: { trigger: 'axis' },
+        legend: { data: dashboardData.salesTrend.series.map(s => s.name) },
+        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+        xAxis: {
+            type: 'category',
+            data: dashboardData.salesTrend.xAxis
+        },
+        yAxis: { type: 'value' },
+        series: dashboardData.salesTrend.series.map(s => ({
+            name: s.name,
+            type: 'line',
+            smooth: true,
+            data: s.data,
+            itemStyle: { color: s.name === 'Revenue' ? '#5470c6' : '#91cc75' }
+        }))
+    };
+    
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+}
+
+function initTrafficSourcesChart() {
+    const chart = echarts.init(document.getElementById('traffic-sources-chart'));
+    
+    const option = {
+        title: { text: dashboardData.trafficSources.title, left: 'center' },
+        tooltip: { trigger: 'item' },
+        series: [{
+            name: 'Traffic Source',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            data: dashboardData.trafficSources.data,
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    };
+    
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+}
+
+function initRegionalChart() {
+    const chart = echarts.init(document.getElementById('regional-chart'));
+    
+    const option = {
+        title: { text: dashboardData.regionalPerformance.title },
+        tooltip: {},
+        xAxis: {
+            type: 'category',
+            data: dashboardData.regionalPerformance.regions,
+            axisLabel: { interval: 0, rotate: 45 }
+        },
+        yAxis: { type: 'value' },
+        series: [{
+            data: dashboardData.regionalPerformance.data,
+            type: 'bar',
+            itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: '#83bff6' },
+                    { offset: 0.5, color: '#188df0' },
+                    { offset: 1, color: '#188df0' }
+                ])
+            }
+        }]
+    };
+    
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+}
+
+function initCategoriesChart() {
+    const chart = echarts.init(document.getElementById('categories-chart'));
+    
+    const option = {
+        title: { text: dashboardData.productCategories.title },
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        legend: { data: dashboardData.productCategories.series.map(s => s.name) },
+        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+        xAxis: { type: 'value' },
+        yAxis: {
+            type: 'category',
+            data: dashboardData.productCategories.categories
+        },
+        series: dashboardData.productCategories.series.map(s => ({
+            name: s.name,
+            type: 'bar',
+            data: s.data
+        }))
+    };
+    
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+}
+
+function updateKPIs() {
+    // Fetch updated KPI data from controller/model
+    fetch('/data/kpis/updated')
+        .then(response => response.json())
+        .then(variations => {
+            // Update KPI displays with animations
+            animateNumber('total-sales', variations.totalSales, '$');
+            animateNumber('active-users', variations.activeUsers);
+            animateNumber('total-orders', variations.totalOrders);
+            animateNumber('revenue-growth', variations.revenueGrowth.toFixed(1), '%');
+        })
+        .catch(error => {
+            console.error('Error fetching updated KPIs:', error);
+            // Fallback to local simulation if fetch fails
+            const variations = {
+                totalSales: dashboardData.kpis.totalSales + Math.floor(Math.random() * 5000) - 2500,
+                activeUsers: dashboardData.kpis.activeUsers + Math.floor(Math.random() * 200) - 100,
+                totalOrders: dashboardData.kpis.totalOrders + Math.floor(Math.random() * 50) - 25,
+                revenueGrowth: dashboardData.kpis.revenueGrowth + (Math.random() * 2 - 1)
+            };
+            
+            animateNumber('total-sales', variations.totalSales, '$');
+            animateNumber('active-users', variations.activeUsers);
+            animateNumber('total-orders', variations.totalOrders);
+            animateNumber('revenue-growth', variations.revenueGrowth.toFixed(1), '%');
+        });
+}
+
+function animateNumber(elementId, targetValue, prefix = '', suffix = '') {
+    const element = document.getElementById(elementId);
+    const currentValue = parseInt(element.textContent.replace(/[^0-9.-]/g, ''));
+    const duration = 1000;
+    const startTime = Date.now();
+    
+    function updateNumber() {
+        const currentTime = Date.now();
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        
+        const value = Math.floor(currentValue + (targetValue - currentValue) * progress);
+        let displayValue = value.toLocaleString();
+        
+        if (prefix) displayValue = prefix + displayValue;
+        if (suffix) displayValue = displayValue + suffix;
+        
+        element.textContent = displayValue;
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateNumber);
+        }
+    }
+    
+    updateNumber();
+}
+</script>
+
+<%- include('partials/footer') %>

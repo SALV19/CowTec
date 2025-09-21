@@ -1,0 +1,200 @@
+<%# 
+  📦 VENDORS - THIRD-PARTY DEPENDENCIES
+  
+  Centralized loading of external libraries and frameworks
+%>
+
+<%# CDN Links for External Libraries %>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts - Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ECharts JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+<!-- Bootstrap 5 JavaScript (if needed) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<%# 
+  VENDOR CONFIGURATION
+  Configure third-party libraries with design tokens
+%>
+
+<style>
+/* Override Bootstrap with Design Tokens */
+:root {
+  /* Bootstrap Color Overrides */
+  --bs-primary: var(--color-primary-500);
+  --bs-success: var(--color-success-500);
+  --bs-warning: var(--color-warning-500);
+  --bs-danger: var(--color-danger-500);
+  --bs-info: var(--color-dashboard-kpiInfo);
+  
+  /* Bootstrap Typography Overrides */
+  --bs-font-sans-serif: var(--font-sans);
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-font-size: var(--text-base);
+  --bs-body-line-height: var(--leading-normal);
+  
+  /* Bootstrap Spacing Overrides */
+  --bs-border-radius: var(--radius-md);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-lg);
+  
+  /* Bootstrap Shadow Overrides */
+  --bs-box-shadow: var(--shadow-md);
+  --bs-box-shadow-sm: var(--shadow-sm);
+  --bs-box-shadow-lg: var(--shadow-lg);
+}
+
+/* Font Awesome Customizations */
+.fa-icon-primary { color: var(--color-primary-500); }
+.fa-icon-success { color: var(--color-success-500); }
+.fa-icon-warning { color: var(--color-warning-500); }
+.fa-icon-danger { color: var(--color-danger-500); }
+
+/* ECharts Theme Integration */
+.echarts-container {
+  width: 100%;
+  height: 400px;
+  min-height: 300px;
+}
+
+/* Bootstrap Component Customizations */
+.card {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-lg);
+}
+
+.card-header {
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+  font-weight: var(--font-semibold);
+}
+
+.btn {
+  font-family: var(--font-sans);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-600);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-700);
+}
+
+.btn-success {
+  background-color: var(--color-success-500);
+  border-color: var(--color-success-600);
+}
+
+.btn-success:hover {
+  background-color: var(--color-success-600);
+  border-color: var(--color-success-700);
+}
+
+/* Navigation Customizations */
+.navbar {
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.nav-link {
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--color-primary-500);
+}
+
+.nav-link.active {
+  color: var(--color-primary-500);
+  font-weight: var(--font-semibold);
+}
+</style>
+
+<script>
+<%# ECharts Theme Configuration %>
+window.echartsCustomTheme = {
+  color: [
+    'var(--color-dashboard-chartPrimary)',
+    'var(--color-dashboard-chartSecondary)', 
+    'var(--color-dashboard-chartAccent)',
+    'var(--color-primary-500)',
+    'var(--color-success-500)',
+    'var(--color-warning-500)',
+    'var(--color-danger-500)'
+  ],
+  backgroundColor: 'transparent',
+  textStyle: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: 14,
+    color: 'var(--color-text-primary)'
+  },
+  title: {
+    textStyle: {
+      fontFamily: 'var(--font-sans)',
+      fontSize: 18,
+      fontWeight: 600,
+      color: 'var(--color-text-primary)'
+    }
+  },
+  legend: {
+    textStyle: {
+      fontFamily: 'var(--font-sans)',
+      fontSize: 12,
+      color: 'var(--color-text-secondary)'
+    }
+  },
+  tooltip: {
+    backgroundColor: 'var(--color-bg-primary)',
+    borderColor: 'var(--color-border)',
+    textStyle: {
+      fontFamily: 'var(--font-sans)',
+      color: 'var(--color-text-primary)'
+    }
+  }
+};
+
+<%# Register ECharts theme when library loads %>
+if (typeof echarts !== 'undefined') {
+  echarts.registerTheme('cowtec', window.echartsCustomTheme);
+}
+
+<%# Utility function to initialize charts with theme %>
+window.initChart = function(containerId, options, theme = 'cowtec') {
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error(`Chart container '${containerId}' not found`);
+    return null;
+  }
+  
+  const chart = echarts.init(container, theme);
+  chart.setOption(options);
+  
+  // Make charts responsive
+  window.addEventListener('resize', () => chart.resize());
+  
+  return chart;
+};
+</script>

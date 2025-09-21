@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- ECharts CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <%- include('../components/organisms/navigation', { 
+      brandName: 'ECharts App',
+      navItems: [
+        { 
+          href: '/', 
+          text: 'Dashboard', 
+          icon: 'tachometer-alt',
+          isActive: title.includes('Dashboard') || title.includes('Analytics')
+        },
+        { 
+          href: '/charts', 
+          text: 'Charts', 
+          icon: 'chart-bar',
+          isActive: title.includes('Charts') || title.includes('Interactive')
+        }
+      ]
+    }) %>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <%= content %>
+    </main>
+
+    <!-- Footer -->
+    <%- include('../components/organisms/footer', { 
+      siteName: 'ECharts Node.js App',
+      links: [
+        { href: '/docs', text: 'Documentation', icon: 'book' },
+        { href: '/api', text: 'API', icon: 'code' },
+        { href: '/support', text: 'Support', icon: 'question-circle' }
+      ]
+    }) %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

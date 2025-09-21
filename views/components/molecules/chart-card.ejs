@@ -1,0 +1,25 @@
+<!-- Chart Card Molecule -->
+<div class="card<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <%- include('../atoms/card-header', { title: title, icon: icon }) %>
+  <div class="card-body">
+    <%- include('../atoms/chart-container', { 
+      chartId: chartId, 
+      height: height,
+      placeholder: placeholder,
+      data: data 
+    }) %>
+    <% if (typeof controls !== 'undefined' && controls) { %>
+      <div class="chart-controls mt-3">
+        <% controls.forEach(control => { %>
+          <%- include('../atoms/button', { 
+            text: control.text, 
+            variant: typeof control.variant !== 'undefined' ? control.variant : 'outline-primary',
+            size: 'sm',
+            onclick: control.onclick,
+            icon: control.icon
+          }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>

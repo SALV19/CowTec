@@ -1,0 +1,29 @@
+<!-- Page Header Molecule -->
+<div class="row<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <div class="col-12">
+    <h1>
+      <% if (typeof icon !== 'undefined' && icon) { %>
+        <%- include('../atoms/icon', { name: icon, additionalClasses: 'me-2' }) %>
+      <% } %>
+      <%= title %>
+    </h1>
+    <% if (typeof subtitle !== 'undefined' && subtitle) { %>
+      <p class="lead"><%= subtitle %></p>
+    <% } %>
+    <% if (typeof breadcrumbs !== 'undefined' && breadcrumbs) { %>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <% breadcrumbs.forEach((crumb, index) => { %>
+            <li class="breadcrumb-item<%= index === breadcrumbs.length - 1 ? ' active' : '' %>">
+              <% if (index === breadcrumbs.length - 1) { %>
+                <%= crumb.text %>
+              <% } else { %>
+                <a href="<%= crumb.href %>"><%= crumb.text %></a>
+              <% } %>
+            </li>
+          <% }); %>
+        </ol>
+      </nav>
+    <% } %>
+  </div>
+</div>

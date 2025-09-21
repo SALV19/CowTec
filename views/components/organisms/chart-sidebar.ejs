@@ -1,0 +1,26 @@
+<!-- Chart Navigation Sidebar Organism -->
+<div class="card<%= additionalClasses ? ' ' + additionalClasses : '' %>">
+  <%- include('../atoms/card-header', { title: 'Chart Types', icon: 'chart-bar' }) %>
+  <div class="list-group list-group-flush">
+    <% chartTypes.forEach(chart => { %>
+      <%- include('../atoms/list-group-item', { 
+        href: '#',
+        additionalClasses: 'chart-nav',
+        dataAttributes: {
+          'chart-type': chart.type,
+          'chart-id': chart.id
+        },
+        content: `
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <span class="me-2">${chart.icon}</span>
+              <strong>${chart.name}</strong>
+              <br>
+              <small class="text-muted">${chart.description}</small>
+            </div>
+          </div>
+        `
+      }) %>
+    <% }); %>
+  </div>
+</div>

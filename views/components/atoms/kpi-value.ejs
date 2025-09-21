@@ -1,0 +1,7 @@
+<!-- KPI Value Display Atom -->
+<span 
+  class="kpi-value<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
+  <% if (typeof id !== 'undefined' && id) { %>id="<%= id %>"<% } %>
+>
+  <% if (typeof prefix !== 'undefined' && prefix) { %><%= prefix %><% } %><%= value %><% if (typeof suffix !== 'undefined' && suffix) { %><%= suffix %><% } %>
+</span>

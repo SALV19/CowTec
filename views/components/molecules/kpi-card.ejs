@@ -1,0 +1,30 @@
+<!-- KPI Card Molecule -->
+<div class="card bg-<%= typeof bgColor !== 'undefined' ? bgColor : 'primary' %> text-white<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h5><%= title %></h5>
+        <h3 id="<%= id %>">
+          <%- include('../atoms/kpi-value', { 
+            value: value, 
+            prefix: typeof prefix !== 'undefined' ? prefix : undefined, 
+            suffix: typeof suffix !== 'undefined' ? suffix : undefined,
+            id: typeof valueId !== 'undefined' ? valueId : undefined
+          }) %>
+        </h3>
+        <% if (typeof change !== 'undefined' && change) { %>
+          <small class="opacity-75">
+            <%- include('../atoms/badge', { 
+              text: change, 
+              variant: (typeof changeType !== 'undefined' && changeType) === 'increase' ? 'success' : 'danger',
+              icon: (typeof changeType !== 'undefined' && changeType) === 'increase' ? 'arrow-up' : 'arrow-down'
+            }) %>
+          </small>
+        <% } %>
+      </div>
+      <div class="align-self-center">
+        <%- include('../atoms/icon', { name: icon, additionalClasses: 'fa-2x' }) %>
+      </div>
+    </div>
+  </div>
+</div>

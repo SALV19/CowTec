@@ -1,0 +1,15 @@
+<!-- Chart Container Atom -->
+<div 
+  id="<%= chartId %>" 
+  style="width: 100%; height: <%= typeof height !== 'undefined' ? height : '300px' %>;"
+  class="chart-container<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
+  <% if (typeof placeholder !== 'undefined' && placeholder) { %>
+    data-placeholder="<%= placeholder %>"
+  <% } %>
+>
+  <% if (typeof placeholder !== 'undefined' && placeholder && (typeof data === 'undefined' || !data)) { %>
+    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+      <%= placeholder %>
+    </div>
+  <% } %>
+</div>

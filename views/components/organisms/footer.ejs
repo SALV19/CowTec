@@ -1,0 +1,24 @@
+<!-- Footer Organism -->
+<footer class="bg-dark text-light mt-5 py-4">
+  <div class="container text-center">
+    <p class="mb-0">
+      &copy; <%= new Date().getFullYear() %> <%= siteName || 'ECharts Node.js App' %>. 
+      Built with Node.js, EJS, ECharts & MVC + Atomic Design Architecture.
+    </p>
+    <% if (links && links.length > 0) { %>
+      <div class="mt-2">
+        <% links.forEach((link, index) => { %>
+          <a href="<%= link.href %>" class="text-light text-decoration-none">
+            <% if (link.icon) { %>
+              <%- include('../atoms/icon', { name: link.icon, additionalClasses: 'me-1' }) %>
+            <% } %>
+            <%= link.text %>
+          </a>
+          <% if (index < links.length - 1) { %>
+            <span class="mx-2">|</span>
+          <% } %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</footer>

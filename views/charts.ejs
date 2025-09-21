@@ -1,0 +1,161 @@
+<%- include('partials/header') %>
+
+<div class="row">
+    <div class="col-12">
+        <h1><%= title %></h1>
+        <p class="lead">Interactive data visualizations using Apache ECharts</p>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Chart Navigation -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Chart Types</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <% charts.forEach(chart => { %>
+                <a href="#" class="list-group-item list-group-item-action chart-nav" 
+                   data-chart-type="<%= chart.type %>" data-chart-id="<%= chart.id %>">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="me-2"><%= chart.icon %></span>
+                            <strong><%= chart.name %></strong>
+                            <br>
+                            <small class="text-muted"><%= chart.description %></small>
+                        </div>
+                    </div>
+                </a>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Display Area -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h5 id="current-chart-title">Select a chart type</h5>
+            </div>
+            <div class="card-body">
+                <div id="main-chart" style="width: 100%; height: 400px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999;">
+                    Click on a chart type to display it here
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Controls -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>Chart Controls</h6>
+                <button class="btn btn-sm btn-outline-primary" onclick="refreshChart()">
+                    🔄 Refresh Data
+                </button>
+                <button class="btn btn-sm btn-outline-success" onclick="downloadChart()">
+                    💾 Download PNG
+                </button>
+                <button class="btn btn-sm btn-outline-info" onclick="toggleTheme()">
+                    🎨 Toggle Theme
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentChart = null;
+let currentTheme = 'light';
+
+// Chart navigation event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const chartNavs = document.querySelectorAll('.chart-nav');
+    
+    chartNavs.forEach(nav => {
+        nav.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all nav items
+            chartNavs.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+            
+            const chartType = this.dataset.chartType;
+            const chartId = this.dataset.chartId;
+            
+            loadChart(chartType, chartId);
+        });
+    });
+});
+
+async function loadChart(type, chartId) {
+    try {
+        // Update title
+        document.getElementById('current-chart-title').textContent = 
+            type.charAt(0).toUpperCase() + type.slice(1) + ' Chart';
+        
+        // Fetch chart data from controller
+        const response = await fetch(`/data/charts/${type}`);
+        const chartOption = await response.json();
+        
+        // Initialize or update chart
+        const chartContainer = document.getElementById('main-chart');
+        
+        if (currentChart) {
+            currentChart.dispose();
+        }
+        
+        currentChart = echarts.init(chartContainer, currentTheme);
+        currentChart.setOption(chartOption);
+        
+        // Make chart responsive
+        window.addEventListener('resize', function() {
+            if (currentChart) {
+                currentChart.resize();
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error loading chart:', error);
+        document.getElementById('main-chart').innerHTML = 
+            '<div class="alert alert-danger">Error loading chart data</div>';
+    }
+}
+
+function refreshChart() {
+    const activeNav = document.querySelector('.chart-nav.active');
+    if (activeNav) {
+        const chartType = activeNav.dataset.chartType;
+        const chartId = activeNav.dataset.chartId;
+        loadChart(chartType, chartId);
+    }
+}
+
+function downloadChart() {
+    if (currentChart) {
+        const url = currentChart.getDataURL({
+            pixelRatio: 2,
+            backgroundColor: '#fff'
+        });
+        
+        const link = document.createElement('a');
+        link.download = 'chart.png';
+        link.href = url;
+        link.click();
+    }
+}
+
+function toggleTheme() {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    const activeNav = document.querySelector('.chart-nav.active');
+    if (activeNav) {
+        const chartType = activeNav.dataset.chartType;
+        const chartId = activeNav.dataset.chartId;
+        loadChart(chartType, chartId);
+    }
+}
+</script>
+
+<%- include('partials/footer') %>

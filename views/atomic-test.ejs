@@ -1,0 +1,66 @@
+<!-- Test Atomic Design Components -->
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-12">
+    <h1>Atomic Design Test</h1>
+    <p class="lead">Testing atomic design components</p>
+  </div>
+</div>
+
+<!-- Test Button Atom -->
+<div class="row mb-3">
+  <div class="col-12">
+    <h3>Button Atom Test</h3>
+    <%- include('components/atoms/button', { 
+      text: 'Test Button',
+      variant: 'primary',
+      icon: 'check'
+    }) %>
+    
+    <%- include('components/atoms/button', { 
+      text: 'Secondary Button',
+      variant: 'secondary'
+    }) %>
+  </div>
+</div>
+
+<!-- Test KPI Card Molecule -->
+<div class="row mb-3">
+  <div class="col-12">
+    <h3>KPI Card Molecule Test</h3>
+  </div>
+  <div class="col-md-3">
+    <%- include('components/molecules/kpi-card', { 
+      title: 'Test KPI',
+      value: '1,234',
+      prefix: '$',
+      icon: 'dollar-sign',
+      bgColor: 'primary',
+      id: 'test-kpi'
+    }) %>
+  </div>
+</div>
+
+<!-- Test Chart Card Molecule -->
+<div class="row mb-3">
+  <div class="col-12">
+    <h3>Simple Chart Container Test</h3>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Test Chart</h5>
+      </div>
+      <div class="card-body">
+        <%- include('components/atoms/chart-container', { 
+          chartId: 'test-chart',
+          height: '200px',
+          placeholder: 'Test chart placeholder'
+        }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,13 @@
+<!-- Navigation Link Atom -->
+<a 
+  class="nav-link<%= isActive ? ' active' : '' %><%= additionalClasses ? ' ' + additionalClasses : '' %>" 
+  href="<%= href %>"
+  <% if (id) { %>id="<%= id %>"<% } %>
+  <% if (dataTarget) { %>data-bs-target="<%= dataTarget %>"<% } %>
+  <% if (dataToggle) { %>data-bs-toggle="<%= dataToggle %>"<% } %>
+>
+  <% if (icon) { %>
+    <%- include('icon', { name: icon, additionalClasses: 'me-2' }) %>
+  <% } %>
+  <%= text %>
+</a>

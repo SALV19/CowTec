@@ -1,0 +1,17 @@
+<!-- Charts Grid Organism -->
+<div class="row<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <% charts.forEach(chart => { %>
+    <div class="col-md-<%= typeof chart.columnSize !== 'undefined' ? chart.columnSize : 6 %>">
+      <%- include('../molecules/chart-card', { 
+        title: chart.title,
+        icon: chart.icon,
+        chartId: chart.chartId,
+        height: chart.height,
+        placeholder: chart.placeholder,
+        data: chart.data,
+        controls: chart.controls,
+        additionalClasses: typeof chart.spacing !== 'undefined' ? chart.spacing : 'mb-4'
+      }) %>
+    </div>
+  <% }); %>
+</div>
