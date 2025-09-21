@@ -1,0 +1,85 @@
+/* Grid and Layout Design Tokens */
+:root {
+  /* Container */
+  --container-max-width-sm: 640px;
+  --container-max-width-md: 768px;
+  --container-max-width-lg: 1024px;
+  --container-max-width-xl: 1280px;
+  --container-max-width-2xl: 1536px;
+
+  /* Grid Columns */
+  --grid-columns: 12;
+  --grid-gutter-xs: var(--spacing-1);
+  --grid-gutter-sm: var(--spacing-2);
+  --grid-gutter-md: var(--spacing-3);
+  --grid-gutter-lg: var(--spacing-4);
+  --grid-gutter-xl: var(--spacing-6);
+  --grid-gutter-2xl: var(--spacing-8);
+
+  /* Grid Column Spans */
+  --grid-col-span-1: span 1 / span 1;
+  --grid-col-span-2: span 2 / span 2;
+  --grid-col-span-3: span 3 / span 3;
+  --grid-col-span-4: span 4 / span 4;
+  --grid-col-span-5: span 5 / span 5;
+  --grid-col-span-6: span 6 / span 6;
+  --grid-col-span-7: span 7 / span 7;
+  --grid-col-span-8: span 8 / span 8;
+  --grid-col-span-9: span 9 / span 9;
+  --grid-col-span-10: span 10 / span 10;
+  --grid-col-span-11: span 11 / span 11;
+  --grid-col-span-12: span 12 / span 12;
+
+  /* Grid Column Start */
+  --grid-col-start-1: 1;
+  --grid-col-start-2: 2;
+  --grid-col-start-3: 3;
+  --grid-col-start-4: 4;
+  --grid-col-start-5: 5;
+  --grid-col-start-6: 6;
+  --grid-col-start-7: 7;
+  --grid-col-start-8: 8;
+  --grid-col-start-9: 9;
+  --grid-col-start-10: 10;
+  --grid-col-start-11: 11;
+  --grid-col-start-12: 12;
+  --grid-col-start-13: 13;
+
+  /* Grid Row Spans */
+  --grid-row-span-1: span 1 / span 1;
+  --grid-row-span-2: span 2 / span 2;
+  --grid-row-span-3: span 3 / span 3;
+  --grid-row-span-4: span 4 / span 4;
+  --grid-row-span-5: span 5 / span 5;
+  --grid-row-span-6: span 6 / span 6;
+
+  /* Flexbox */
+  --flex-direction-row: row;
+  --flex-direction-column: column;
+  --flex-direction-row-reverse: row-reverse;
+  --flex-direction-column-reverse: column-reverse;
+
+  --flex-wrap-nowrap: nowrap;
+  --flex-wrap-wrap: wrap;
+  --flex-wrap-wrap-reverse: wrap-reverse;
+
+  --flex-justify-start: flex-start;
+  --flex-justify-end: flex-end;
+  --flex-justify-center: center;
+  --flex-justify-between: space-between;
+  --flex-justify-around: space-around;
+  --flex-justify-evenly: space-evenly;
+
+  --flex-align-start: flex-start;
+  --flex-align-end: flex-end;
+  --flex-align-center: center;
+  --flex-align-baseline: baseline;
+  --flex-align-stretch: stretch;
+
+  --flex-align-self-auto: auto;
+  --flex-align-self-start: flex-start;
+  --flex-align-self-end: flex-end;
+  --flex-align-self-center: center;
+  --flex-align-self-baseline: baseline;
+  --flex-align-self-stretch: stretch;
+}

@@ -1,0 +1,90 @@
+/* Utility Design Tokens */
+:root {
+  /* Display */
+  --display-block: block;
+  --display-inline: inline;
+  --display-inline-block: inline-block;
+  --display-flex: flex;
+  --display-inline-flex: inline-flex;
+  --display-grid: grid;
+  --display-inline-grid: inline-grid;
+  --display-none: none;
+
+  /* Position */
+  --position-static: static;
+  --position-relative: relative;
+  --position-absolute: absolute;
+  --position-fixed: fixed;
+  --position-sticky: sticky;
+
+  /* Overflow */
+  --overflow-visible: visible;
+  --overflow-hidden: hidden;
+  --overflow-scroll: scroll;
+  --overflow-auto: auto;
+
+  /* Z-Index Scale */
+  --z-index-auto: auto;
+  --z-index-0: 0;
+  --z-index-10: 10;
+  --z-index-20: 20;
+  --z-index-30: 30;
+  --z-index-40: 40;
+  --z-index-50: 50;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  --z-index-toast: 1080;
+
+  /* Opacity */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+
+  /* Cursor */
+  --cursor-auto: auto;
+  --cursor-default: default;
+  --cursor-pointer: pointer;
+  --cursor-wait: wait;
+  --cursor-text: text;
+  --cursor-move: move;
+  --cursor-not-allowed: not-allowed;
+
+  /* User Select */
+  --user-select-none: none;
+  --user-select-text: text;
+  --user-select-all: all;
+  --user-select-auto: auto;
+
+  /* Pointer Events */
+  --pointer-events-none: none;
+  --pointer-events-auto: auto;
+
+  /* Resize */
+  --resize-none: none;
+  --resize-y: vertical;
+  --resize-x: horizontal;
+  --resize-both: both;
+
+  /* Aspect Ratio */
+  --aspect-ratio-square: 1 / 1;
+  --aspect-ratio-video: 16 / 9;
+  --aspect-ratio-photo: 4 / 3;
+  --aspect-ratio-banner: 3 / 1;
+}

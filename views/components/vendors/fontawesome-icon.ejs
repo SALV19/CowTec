@@ -1,0 +1,10 @@
+<!-- Font Awesome Icon Vendor Component -->
+<!-- Wraps Font Awesome icons for consistent usage -->
+<%
+const style = typeof style !== 'undefined' ? style : 'fas';
+const additionalClasses = typeof additionalClasses !== 'undefined' ? additionalClasses : '';
+%>
+<i class="<%= style %> fa-<%= name %> <%= additionalClasses %>"
+   <% if (typeof id !== 'undefined' && id) { %>id="<%= id %>"<% } %>
+   <% if (typeof ariaHidden !== 'undefined' && ariaHidden) { %>aria-hidden="true"<% } %>
+   <% if (typeof title !== 'undefined' && title) { %>title="<%= title %>"<% } %>></i>

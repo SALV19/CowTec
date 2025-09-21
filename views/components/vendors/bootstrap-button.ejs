@@ -1,0 +1,35 @@
+<!-- Bootstrap Button Vendor Component -->
+<!-- Wraps Bootstrap button classes for consistent usage -->
+<%
+// Map our design system variants to Bootstrap classes
+const bootstrapVariants = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  success: 'btn-success',
+  danger: 'btn-danger',
+  warning: 'btn-warning',
+  info: 'btn-info',
+  light: 'btn-light',
+  dark: 'btn-dark',
+  link: 'btn-link'
+};
+
+const variant = typeof variant !== 'undefined' ? variant : 'primary';
+const bootstrapClass = bootstrapVariants[variant] || 'btn-primary';
+const additionalClasses = typeof additionalClasses !== 'undefined' ? additionalClasses : '';
+%>
+<button
+  class="btn <%= bootstrapClass %> <%= additionalClasses %>"
+  type="<%= typeof type !== 'undefined' ? type : 'button' %>"
+  <% if (typeof onclick !== 'undefined' && onclick) { %>onclick="<%= onclick %>"<% } %>
+  <% if (typeof disabled !== 'undefined' && disabled) { %>disabled<% } %>
+  <% if (typeof id !== 'undefined' && id) { %>id="<%= id %>"<% } %>
+  <% if (typeof dataBs !== 'undefined' && dataBs) { %>data-bs-toggle="<%= dataBs %>"<% } %>
+  <% if (typeof dataTarget !== 'undefined' && dataTarget) { %>data-bs-target="<%= dataTarget %>"<% } %>
+  <% if (typeof ariaLabel !== 'undefined' && ariaLabel) { %>aria-label="<%= ariaLabel %>"<% } %>
+>
+  <% if (typeof icon !== 'undefined' && icon) { %>
+    <%- include('../atoms/icon', { name: icon, additionalClasses: (typeof text !== 'undefined' && text) ? 'me-2' : '' }) %>
+  <% } %>
+  <% if (typeof text !== 'undefined' && text) { %><%= text %><% } %>
+</button>

@@ -1,8 +1,8 @@
 <!-- KPI Dashboard Section Organism -->
-<div class="row mb-4<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+<div class="kpi-grid<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
   <% kpis.forEach((kpi, index) => { %>
-    <div class="col-md-<%= typeof columnSize !== 'undefined' ? columnSize : 3 %>">
-      <%- include('../molecules/kpi-card', { 
+    <div class="kpi-cell">
+      <%- include('../molecules/kpi-card', {
         title: kpi.title,
         value: kpi.value,
         prefix: kpi.prefix,

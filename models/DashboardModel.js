@@ -81,18 +81,6 @@ class DashboardModel {
     };
   }
   
-  // Get specific chart data by type
-  static getChartData(chartType) {
-    const chartMethods = {
-      'salesTrend': this.getSalesTrendData,
-      'trafficSources': this.getTrafficSourcesData,
-      'regionalPerformance': this.getRegionalPerformanceData,
-      'productCategories': this.getProductCategoriesData
-    };
-    
-    return chartMethods[chartType] ? chartMethods[chartType]() : null;
-  }
-  
   // Simulate real-time KPI updates (for demo purposes)
   static getUpdatedKPIData() {
     const baseData = this.getKPIData();

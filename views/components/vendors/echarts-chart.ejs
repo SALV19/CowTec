@@ -1,0 +1,59 @@
+<!-- ECharts Vendor Component -->
+<!-- Wraps ECharts library for consistent chart creation -->
+<div class="chart-container-vendor <%= typeof containerClass !== 'undefined' ? containerClass : '' %>"
+     <% if (typeof id !== 'undefined' && id) { %>id="<%= id %>"<% } %>
+     data-chart-options="<%= typeof options !== 'undefined' ? encodeURIComponent(JSON.stringify(options)) : '{}' %>"
+     data-chart-theme="<%= typeof theme !== 'undefined' ? theme : '' %>"
+     style="width: <%= typeof width !== 'undefined' ? width : '100%' %>; height: <%= typeof height !== 'undefined' ? height : '400px' %>;">
+</div>
+
+<script>
+(function() {
+  const container = document.currentScript.previousElementSibling;
+  const containerId = container.id || 'chart-' + Math.random().toString(36).substr(2, 9);
+
+  if (!container) {
+    console.error('ECharts container not found');
+    return;
+  }
+
+  // Initialize ECharts instance
+  const chart = echarts.init(container);
+
+  // Get options from data attributes
+  const optionsData = container.getAttribute('data-chart-options');
+  const theme = container.getAttribute('data-chart-theme');
+
+  const defaultOptions = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  if (theme) {
+    defaultOptions.theme = theme;
+  }
+
+  let userOptions = {};
+  if (optionsData) {
+    try {
+      userOptions = JSON.parse(decodeURIComponent(optionsData));
+    } catch (e) {
+      console.error('Invalid chart options:', e);
+    }
+  }
+
+  // Merge options
+  const chartOptions = Object.assign({}, defaultOptions, userOptions);
+
+  // Set chart options
+  chart.setOption(chartOptions);
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    chart.resize();
+  });
+
+  // Store chart instance for potential cleanup
+  container._echartsInstance = chart;
+})();
+</script>

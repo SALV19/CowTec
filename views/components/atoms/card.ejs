@@ -1,4 +1,4 @@
 <!-- Card Atom -->
-<div class="card<%= additionalClasses ? ' ' + additionalClasses : '' %>">
-  <%= content %>
+<div class="card<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %><%= typeof shadow !== 'undefined' && shadow ? ' shadow-' + shadow : ' shadow-sm' %><%= typeof border !== 'undefined' && !border ? ' border-0' : '' %>">
+  <%- content %>
 </div>

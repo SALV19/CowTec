@@ -1,0 +1,13 @@
+<!-- Text Atom -->
+<% 
+const tag = typeof element !== 'undefined' ? element : 'p';
+const baseClasses = typeof classes !== 'undefined' ? classes : '';
+const weight = typeof weight !== 'undefined' ? ' fw-' + weight : '';
+const size = typeof size !== 'undefined' ? ' fs-' + size : '';
+const color = typeof color !== 'undefined' ? ' text-' + color : '';
+const alignment = typeof align !== 'undefined' ? ' text-' + align : '';
+const transform = typeof transform !== 'undefined' ? ' text-' + transform : '';
+const allClasses = baseClasses + weight + size + color + alignment + transform;
+%>
+
+<<%= tag %><%= allClasses ? ' class="' + allClasses.trim() + '"' : '' %><%= typeof id !== 'undefined' ? ' id="' + id + '"' : '' %>><%= content %></<%= tag %>>

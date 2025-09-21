@@ -1,0 +1,40 @@
+/* Breakpoint Design Tokens */
+:root {
+  /* Breakpoint Values */
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Breakpoint Queries */
+  --breakpoint-up-xs: (min-width: 475px);
+  --breakpoint-up-sm: (min-width: 640px);
+  --breakpoint-up-md: (min-width: 768px);
+  --breakpoint-up-lg: (min-width: 1024px);
+  --breakpoint-up-xl: (min-width: 1280px);
+  --breakpoint-up-2xl: (min-width: 1536px);
+
+  --breakpoint-down-xs: (max-width: 474px);
+  --breakpoint-down-sm: (max-width: 639px);
+  --breakpoint-down-md: (max-width: 767px);
+  --breakpoint-down-lg: (max-width: 1023px);
+  --breakpoint-down-xl: (max-width: 1279px);
+  --breakpoint-down-2xl: (max-width: 1535px);
+
+  --breakpoint-only-xs: (min-width: 0px) and (max-width: 474px);
+  --breakpoint-only-sm: (min-width: 475px) and (max-width: 639px);
+  --breakpoint-only-md: (min-width: 640px) and (max-width: 767px);
+  --breakpoint-only-lg: (min-width: 768px) and (max-width: 1023px);
+  --breakpoint-only-xl: (min-width: 1024px) and (max-width: 1279px);
+  --breakpoint-only-2xl: (min-width: 1280px);
+
+  /* Container Queries (for component-based responsive design) */
+  --container-query-xs: (min-width: 475px);
+  --container-query-sm: (min-width: 640px);
+  --container-query-md: (min-width: 768px);
+  --container-query-lg: (min-width: 1024px);
+  --container-query-xl: (min-width: 1280px);
+  --container-query-2xl: (min-width: 1536px);
+}

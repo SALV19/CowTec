@@ -2,14 +2,35 @@
 <div 
   id="<%= chartId %>" 
   style="width: 100%; height: <%= typeof height !== 'undefined' ? height : '300px' %>;"
-  class="chart-container<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
+  class="chart-container position-relative<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
   <% if (typeof placeholder !== 'undefined' && placeholder) { %>
     data-placeholder="<%= placeholder %>"
   <% } %>
 >
   <% if (typeof placeholder !== 'undefined' && placeholder && (typeof data === 'undefined' || !data)) { %>
-    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
-      <%= placeholder %>
+    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+      <div class="spinner-border mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <span><%= placeholder %></span>
+    </div>
+  <% } else { %>
+    <!-- Default loading state when no placeholder is provided -->
+    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+      <div class="spinner-border mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <span>Loading chart...</span>
     </div>
   <% } %>
+  
+  <!-- Chart loading overlay -->
+  <div class="chart-loading-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+    <div class="d-flex align-items-center justify-content-center h-100 bg-white bg-opacity-75">
+      <div class="text-center">
+        <div class="spinner-border text-primary mb-2" role="status"></div>
+        <div class="small text-muted">Loading chart...</div>
+      </div>
+    </div>
+  </div>
 </div>

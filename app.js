@@ -19,7 +19,7 @@ app.use('/', require('./routes/index'));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render('error', { 
+  res.status(500).render('pages/error', { 
     title: 'Error',
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err : {}
@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).render('404', { 
+  res.status(404).render('pages/404', { 
     title: '404 - Page Not Found',
     url: req.originalUrl 
   });

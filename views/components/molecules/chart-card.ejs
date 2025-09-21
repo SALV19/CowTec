@@ -1,24 +1,27 @@
 <!-- Chart Card Molecule -->
-<div class="card<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
-  <%- include('../atoms/card-header', { title: title, icon: icon }) %>
+<div class="card chart-card border-0 shadow-sm h-100<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : ' mb-4' %>">
+  <div class="card-header bg-white border-0 pb-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="chart-title">
+        <% if (typeof icon !== 'undefined' && icon) { %>
+          <%- include('../atoms/icon', { name: icon, additionalClasses: 'text-primary me-2' }) %>
+        <% } %>
+        <h5 class="mb-0 d-inline fw-semibold"><%= title %></h5>
+      </div>
+    </div>
+  </div>
+
   <div class="card-body">
-    <%- include('../atoms/chart-container', { 
-      chartId: chartId, 
+    <%- include('../atoms/chart-container', {
+      chartId: chartId,
       height: height,
-      placeholder: placeholder,
-      data: data 
+      placeholder: typeof placeholder !== 'undefined' ? placeholder : 'Loading chart...',
+      data: typeof data !== 'undefined' ? data : undefined
     }) %>
-    <% if (typeof controls !== 'undefined' && controls) { %>
-      <div class="chart-controls mt-3">
-        <% controls.forEach(control => { %>
-          <%- include('../atoms/button', { 
-            text: control.text, 
-            variant: typeof control.variant !== 'undefined' ? control.variant : 'outline-primary',
-            size: 'sm',
-            onclick: control.onclick,
-            icon: control.icon
-          }) %>
-        <% }); %>
+
+    <% if (typeof subtitle !== 'undefined' && subtitle) { %>
+      <div class="chart-subtitle mt-2">
+        <small class="text-muted"><%= subtitle %></small>
       </div>
     <% } %>
   </div>

@@ -1,0 +1,31 @@
+<!-- Avatar Atom -->
+<% 
+const size = typeof size !== 'undefined' ? size : 'md';
+const sizeClasses = {
+  'xs': 'avatar-xs',
+  'sm': 'avatar-sm', 
+  'md': 'avatar-md',
+  'lg': 'avatar-lg',
+  'xl': 'avatar-xl'
+};
+const shape = typeof shape !== 'undefined' ? shape : 'circle';
+const shapeClass = shape === 'square' ? 'rounded' : 'rounded-circle';
+%>
+
+<div class="avatar <%= sizeClasses[size] %> <%= shapeClass %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+  <% if (typeof src !== 'undefined' && src) { %>
+    <img src="<%= src %>" alt="<%= typeof alt !== 'undefined' ? alt : 'Avatar' %>" class="img-fluid <%= shapeClass %>">
+  <% } else if (typeof initials !== 'undefined' && initials) { %>
+    <div class="avatar-initials bg-<%= typeof bgColor !== 'undefined' ? bgColor : 'primary' %> text-white d-flex align-items-center justify-content-center h-100 <%= shapeClass %>">
+      <span class="fw-bold"><%= initials %></span>
+    </div>
+  <% } else if (typeof icon !== 'undefined' && icon) { %>
+    <div class="avatar-icon bg-<%= typeof bgColor !== 'undefined' ? bgColor : 'secondary' %> text-white d-flex align-items-center justify-content-center h-100 <%= shapeClass %>">
+      <%- include('icon', { name: icon }) %>
+    </div>
+  <% } %>
+  
+  <% if (typeof status !== 'undefined' && status) { %>
+    <span class="avatar-status bg-<%= typeof statusColor !== 'undefined' ? statusColor : 'success' %> border border-white"></span>
+  <% } %>
+</div>

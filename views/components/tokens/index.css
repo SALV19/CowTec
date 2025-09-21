@@ -1,0 +1,23 @@
+/* Design Tokens - Main Import File */
+/* Import all design token categories */
+
+/* Colors */
+@import url('./colors.css');
+
+/* Spacing */
+@import url('./spacing.css');
+
+/* Typography */
+@import url('./typography.css');
+
+/* Layout & Grid */
+@import url('./layout.css');
+
+/* Breakpoints */
+@import url('./breakpoints.css');
+
+/* Effects (shadows, borders, transitions, motion) */
+@import url('./effects.css');
+
+/* Utilities */
+@import url('./utilities.css');
