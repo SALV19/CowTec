@@ -1,5 +1,5 @@
 <!-- Badge Atom -->
-<span class="badge bg-<%= typeof variant !== 'undefined' ? variant : 'primary' %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+<span class="badge badge-<%= typeof variant !== 'undefined' ? variant : 'primary' %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
   <% if (typeof icon !== 'undefined' && icon) { %>
     <%- include('icon', { name: icon, additionalClasses: (typeof text !== 'undefined' && text) ? 'me-1' : '' }) %>
   <% } %>

@@ -1,35 +1,38 @@
 <!-- Chart Container Atom -->
-<div 
-  id="<%= chartId %>" 
-  style="width: 100%; height: <%= typeof height !== 'undefined' ? height : '300px' %>;"
+<div
+  id="<%= chartId %>"
+  style="width: 100%; height: <%= typeof height !== 'undefined' ? height : '300px' %>; position: relative; background: transparent; border-radius: 0; overflow: visible;"
   class="chart-container position-relative<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>"
   <% if (typeof placeholder !== 'undefined' && placeholder) { %>
     data-placeholder="<%= placeholder %>"
   <% } %>
 >
   <% if (typeof placeholder !== 'undefined' && placeholder && (typeof data === 'undefined' || !data)) { %>
-    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100 text-muted">
-      <div class="spinner-border mb-3" role="status">
+    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100"
+         style="color: var(--color-text-muted); background: var(--color-bg-gray-50);">
+      <div class="spinner-border mb-3" role="status" style="color: var(--color-primary-500);">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <span><%= placeholder %></span>
+      <span style="font-size: var(--font-size-sm);"><%= placeholder %></span>
     </div>
   <% } else { %>
     <!-- Default loading state when no placeholder is provided -->
-    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100 text-muted">
-      <div class="spinner-border mb-3" role="status">
+    <div class="chart-placeholder d-flex flex-column align-items-center justify-content-center h-100"
+         style="color: var(--color-text-muted); background: var(--color-bg-gray-50);">
+      <div class="spinner-border mb-3" role="status" style="color: var(--color-primary-500);">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <span>Loading chart...</span>
+      <span style="font-size: var(--font-size-sm);">Loading chart...</span>
     </div>
   <% } %>
-  
+
   <!-- Chart loading overlay -->
-  <div class="chart-loading-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
-    <div class="d-flex align-items-center justify-content-center h-100 bg-white bg-opacity-75">
+  <div class="chart-loading-overlay position-absolute top-0 start-0 w-100 h-100 d-none"
+       style="background: rgba(255, 255, 255, 0.9);">
+    <div class="d-flex align-items-center justify-content-center h-100">
       <div class="text-center">
-        <div class="spinner-border text-primary mb-2" role="status"></div>
-        <div class="small text-muted">Loading chart...</div>
+        <div class="spinner-border text-primary mb-2" role="status" style="color: var(--color-primary-500);"></div>
+        <div class="small" style="color: var(--color-text-muted);">Loading chart...</div>
       </div>
     </div>
   </div>

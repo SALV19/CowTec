@@ -1,6 +1,6 @@
 <!-- Button Atom -->
-<button 
-  class="btn btn-<%= typeof variant !== 'undefined' ? variant : 'primary' %> btn-<%= typeof size !== 'undefined' ? size : 'md' %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %><%= typeof rounded !== 'undefined' && rounded ? ' rounded-pill' : '' %>"
+<button
+  class="btn btn-<%= typeof variant !== 'undefined' ? variant : 'primary' %> btn-<%= typeof size !== 'undefined' ? size : 'md' %><%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %><%= typeof rounded !== 'undefined' && rounded ? ' btn-rounded' : '' %>"
   type="<%= typeof type !== 'undefined' ? type : 'button' %>"
   <% if (typeof onclick !== 'undefined' && onclick) { %>onclick="<%= onclick %>"<% } %>
   <% if (typeof disabled !== 'undefined' && disabled) { %>disabled<% } %>

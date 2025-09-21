@@ -1,7 +1,7 @@
 <!-- KPI Dashboard Section Organism -->
-<div class="kpi-grid<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
+<div class="kpi-section<%= typeof additionalClasses !== 'undefined' && additionalClasses ? ' ' + additionalClasses : '' %>">
   <% kpis.forEach((kpi, index) => { %>
-    <div class="kpi-cell">
+    <div class="kpi-section-item" data-animation-delay="<%= index * 0.1 %>">
       <%- include('../molecules/kpi-card', {
         title: kpi.title,
         value: kpi.value,

@@ -12,7 +12,6 @@
           prefix: '$',
           icon: 'dollar-sign',
           bgColor: 'primary',
-          gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           id: 'total-sales-card',
           valueId: 'total-sales',
           change: '+12.5%',
@@ -23,7 +22,6 @@
           value: data.kpis.activeUsers.toLocaleString(),
           icon: 'users',
           bgColor: 'success',
-          gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
           id: 'active-users-card',
           valueId: 'active-users',
           change: '+8.2%',
@@ -34,8 +32,7 @@
           value: data.kpis.revenueGrowth,
           suffix: '%',
           icon: 'trending-up',
-          bgColor: 'info',
-          gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+          bgColor: 'warning',
           id: 'growth-card',
           valueId: 'revenue-growth',
           change: '+3.1%',
@@ -45,8 +42,7 @@
           title: 'Orders',
           value: data.kpis.totalOrders ? data.kpis.totalOrders.toLocaleString() : '1,250',
           icon: 'shopping-cart',
-          bgColor: 'warning',
-          gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+          bgColor: 'info',
           id: 'orders-card',
           valueId: 'total-orders',
           change: '+15.7%',
@@ -67,7 +63,7 @@
           subtitle: 'Revenue & Profit',
           icon: 'chart-line',
           chartId: 'sales-trend-chart',
-          height: '200px'
+          height: '250px'
         }) %>
       </div>
       <div class="chart-cell compact-chart">
@@ -76,7 +72,7 @@
           subtitle: 'Distribution',
           icon: 'chart-pie',
           chartId: 'traffic-sources-chart',
-          height: '200px'
+          height: '250px'
         }) %>
       </div>
     </div>
@@ -89,7 +85,7 @@
           subtitle: 'Performance',
           icon: 'globe-americas',
           chartId: 'regional-chart',
-          height: '200px'
+          height: '250px'
         }) %>
       </div>
       <div class="chart-cell compact-chart">
@@ -98,7 +94,7 @@
           subtitle: 'Sales & Returns',
           icon: 'boxes',
           chartId: 'categories-chart',
-          height: '200px'
+          height: '250px'
         }) %>
       </div>
     </div>
@@ -117,6 +113,9 @@ const dashboardData = JSON.parse(document.getElementById('dashboard-data').textC
 
 // Initialize dashboard with staggered animations
 document.addEventListener('DOMContentLoaded', function() {
+    // Update last updated time
+    updateLastUpdatedTime();
+    
     // Add staggered animation delays
     const sections = document.querySelectorAll('.slide-in-up');
     sections.forEach((section, index) => {
@@ -155,13 +154,13 @@ function initSalesTrendChart() {
             borderWidth: 1,
             textStyle: { color: '#374151' }
         },
-        grid: { left: '5%', right: '5%', bottom: '10%', top: '10%' },
+        grid: { left: '8%', right: '8%', bottom: '15%', top: '10%' },
         xAxis: {
             type: 'category',
             data: dashboardData.salesTrend.xAxis,
             axisLine: { show: false },
             axisTick: { show: false },
-            axisLabel: { color: '#6b7280', fontSize: 10 }
+            axisLabel: { color: '#6b7280', fontSize: 10, interval: 0 }
         },
         yAxis: {
             type: 'value',
@@ -198,15 +197,25 @@ function initTrafficSourcesChart() {
         },
         series: [{
             type: 'pie',
-            radius: ['40%', '70%'],
+            radius: ['35%', '65%'],
             center: ['50%', '50%'],
             data: dashboardData.trafficSources.data.map((item, index) => ({
                 ...item,
                 itemStyle: { color: ['#667eea', '#10b981', '#f59e0b', '#ef4444'][index] || '#6b7280' }
             })),
-            label: { show: false },
+            label: {
+                show: true,
+                position: 'outside',
+                formatter: '{b}: {d}%',
+                fontSize: 11,
+                color: '#6b7280'
+            },
             emphasis: {
-                label: { show: true, fontSize: 12 }
+                label: {
+                    show: true,
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                }
             }
         }]
     };
@@ -221,11 +230,20 @@ function initRegionalChart() {
     const option = {
         title: { show: false },
         tooltip: { trigger: 'axis' },
-        grid: { left: '5%', right: '5%', bottom: '10%', top: '10%' },
+        grid: { left: '8%', right: '8%', bottom: '25%', top: '10%' },
         xAxis: {
             type: 'category',
             data: dashboardData.regionalPerformance.regions,
-            axisLabel: { rotate: 45, fontSize: 10, color: '#6b7280' },
+            axisLabel: {
+                rotate: 45,
+                fontSize: 10,
+                color: '#6b7280',
+                interval: 0,
+                formatter: function(value) {
+                    // Truncate long labels if needed
+                    return value.length > 8 ? value.substring(0, 8) + '...' : value;
+                }
+            },
             axisLine: { show: false },
             axisTick: { show: false }
         },
@@ -241,7 +259,8 @@ function initRegionalChart() {
             itemStyle: {
                 color: '#667eea',
                 borderRadius: [2, 2, 0, 0]
-            }
+            },
+            barWidth: '60%'
         }]
     };
 
@@ -255,7 +274,7 @@ function initCategoriesChart() {
     const option = {
         title: { show: false },
         tooltip: { trigger: 'axis' },
-        grid: { left: '5%', right: '5%', bottom: '10%', top: '10%' },
+        grid: { left: '25%', right: '8%', bottom: '10%', top: '10%' },
         xAxis: {
             type: 'value',
             axisLine: { show: false },
@@ -267,7 +286,14 @@ function initCategoriesChart() {
             data: dashboardData.productCategories.categories,
             axisLine: { show: false },
             axisTick: { show: false },
-            axisLabel: { fontSize: 10, color: '#6b7280' }
+            axisLabel: {
+                fontSize: 10,
+                color: '#6b7280',
+                formatter: function(value) {
+                    // Truncate long category names
+                    return value.length > 12 ? value.substring(0, 12) + '...' : value;
+                }
+            }
         },
         series: dashboardData.productCategories.series.map((s, index) => ({
             name: s.name,
@@ -276,7 +302,8 @@ function initCategoriesChart() {
             itemStyle: {
                 color: index === 0 ? '#10b981' : '#f59e0b',
                 borderRadius: [0, 2, 2, 0]
-            }
+            },
+            barWidth: '60%'
         }))
     };
 
@@ -302,6 +329,19 @@ function initializeRealTimeFeatures() {
 }
 
 // KPI update function
+function updateLastUpdatedTime() {
+    const timeElement = document.getElementById('last-updated-time');
+    if (!timeElement) return; // Exit if element doesn't exist
+    
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    timeElement.textContent = timeString;
+}
+
 function updateKPIs() {
     fetch('/data/kpis/updated')
         .then(response => response.json())
