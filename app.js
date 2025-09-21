@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -8,6 +9,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Database
+const uri = process.env.MONGODB_URI;
+
+mongoose
+  .connect(uri)
+  .then(() => console.log("Conectado a la base de datos de MongoDB"))
+  .catch((error) =>
+    console.error("Error al conectar con la base de datos:", error)
+  );
 
 // Set EJS as template engine
 app.set('view engine', 'ejs');
